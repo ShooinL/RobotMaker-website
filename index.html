@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Maker - San Lazzaro</title>
+    <style>
+        /* --- DESIGN SYSTEM --- */
+        :root {
+            --primary: #0078d4; /* Outlook Blue */
+            --accent: #ffb900;
+            --text-dark: #222;
+            --text-grey: #555;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+        }
+
+        body { margin: 0; font-family: 'Segoe UI', system-ui, Helvetica, sans-serif; color: var(--text-dark); line-height: 1.6; background-color: #fff; }
+        
+        /* Layout Utilities */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        img { max-width: 100%; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        
+        /* Buttons */
+        .btn { 
+            display: inline-block; 
+            padding: 15px 40px; 
+            background: #ffb900; 
+            color: #000; 
+            text-decoration: none; 
+            border-radius: 50px; 
+            font-weight: 800; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, box-shadow 0.2s; 
+            box-shadow: 0 5px 15px rgba(255, 185, 0, 0.4); 
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 185, 0, 0.6); background: #ffc833; }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            box-shadow: none;
+        }
+        .btn-outline:hover { background: white; color: var(--text-dark); }
+
+        /* HEADER (Transparent navigation) */
+        header { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 20px 0; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: white; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+
+        /* HERO SECTION (The "Wow" Factor) */
+        .hero { 
+            /* Using your uploaded image as background */
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('02-3.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 90vh; /* Takes up almost full screen */
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            border-radius: 0 0 40px 40px; /* Modern curve at bottom */
+        }
+        
+        .hero-content { max-width: 800px; padding: 20px; animation: fadeIn 1.5s ease; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1; font-weight: 800; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.4rem; margin-bottom: 30px; opacity: 0.9; font-weight: 300; }
+        
+        .badges-wrapper { display: flex; gap: 15px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap; }
+        .badge { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.4); }
+
+        /* STORY SECTIONS */
+        .story-container { padding: 80px 0; }
+        .story-section { display: flex; align-items: center; gap: 60px; margin-bottom: 120px; }
+        
+        /* Zig Zag Logic */
+        .story-section:nth-child(even) { flex-direction: row-reverse; } 
+        
+        .story-text { flex: 1; }
+        .story-text h2 { font-size: 2.2rem; margin-bottom: 20px; color: var(--primary); line-height: 1.2; position: relative; }
+        /* Small underline for titles */
+        .story-text h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin-top: 15px; border-radius: 2px; }
+        
+        .story-text p { font-size: 1.15rem; color: #444; margin-bottom: 20px; }
+        
+        .story-media { flex: 1; position: relative; }
+        /* Decorative element behind images */
+        .story-media::before {
+            content: ''; position: absolute; width: 100%; height: 100%; 
+            background: #e6f2ff; border-radius: 15px; z-index: -1; 
+            top: 20px; left: 20px; /* Offset effect */
+        }
+        .story-section:nth-child(even) .story-media::before { left: -20px; }
+
+        /* REGISTRATION FORM AREA */
+        .registration { background: var(--primary); color: white; padding: 80px 20px; text-align: center; }
+        .registration h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        .form-wrapper { background: white; max-width: 700px; margin: 40px auto 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+
+        footer { background: #111; color: #888; text-align: center; padding: 40px; font-size: 0.9rem; }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero { height: auto; padding: 120px 20px 60px 20px; }
+            
+            /* Stack everything vertically on mobile */
+            .story-section { flex-direction: column !important; gap: 30px; margin-bottom: 80px; text-align: center; }
+            .story-text h2::after { margin: 15px auto; /* Center underline */ }
+            .story-media::before { display: none; /* Remove offset box on mobile for cleaner look */ }
+            .nav-content { flex-direction: column; gap: 10px; }
+            
+            iframe { height: 600px; }
+        }
+
+        /* Animation */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-content">
+            <div class="logo">Robot Maker .BO</div>
+            <a href="#register" class="btn btn-outline" style="padding: 10px 25px; font-size: 0.8rem;">Prenota Posto</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badges-wrapper">
+                <span class="badge">📍 San Lazzaro di Savena</span>
+                <span class="badge">🚀 Età 5-8 Anni</span>
+            </div>
+            <h1>Il Loro Futuro <br>Inizia Qui.</h1>
+            <p>Non è solo gioco. È logica, è fisica, è la sicurezza di saper creare.<br>Un percorso di <b>8 incontri</b> per trasformare i mattoncini in ingegneria.</p>
+            
+            <div style="margin-top: 30px;">
+                <a href="#story" class="btn">Scopri il Percorso</a>
+            </div>
+        </div>
+    </section>
+
+    <div id="story" class="container story-container">
+
+        <div class="story-section">
+            <div class="story-text">
+                <h2>1. Ama i LEGO? Non fermiamoci lì.</h2>
+                <p>Costruire è fantastico, ma spesso l'oggetto finito resta fermo su uno scaffale a prendere polvere. E se potessimo fare un passo in più? Immagina se quella creazione potesse prendere vita tra le sue mani.</p>
+            </div>
+            <div class="story-media">
+                <img src="02-1.gif" alt="Costruzione">
+            </div>
+        </div>
+
+        <div class="story-section">
+            <div class="story-text">
+                <h2>2. Diamo vita alle idee.</h2>
+                <p>Non serve essere ingegneri. Aiutiamo i ragazzi a trasformare un blocco statico in una macchina che cammina, disegna e reagisce. È la magia di vedere i propri pensieri trasformarsi in azione reale.</p>
+            </div>
+            <div class="story-media">
+                <img src="RE02-3-GIF.gif" alt="Robot in movimento">
+            </div>
+        </div>
+
+        <div class="story-section">
+            <div class="story-text">
+                <h2>3. Un mondo nuovo, competenze nuove.</h2>
+                <p>La nostra generazione ha imparato sui libri, ma il mondo di oggi richiede logica pratica. A scuola le risorse sono limitate. Questo è il momento giusto per dargli gli strumenti per capire <i>come</i> funzionano le cose, non solo usarle.</p>
+            </div>
+            <div class="story-media">
+                <img src="RE02-5-GIF.gif" alt="Robot Smart Mouse">
+            </div>
+        </div>
+
+        <div class="story-section">
+            <div class="story-text">
+                <h2>4. Niente codice difficile. Solo divertimento.</h2>
+                <p>Nessuno schermo, nessuna tastiera complessa. Procediamo "slowly slowly", passo dopo passo. Usiamo la logica intuitiva: <i>se succede questo, allora fai quello</i>. Imparano la fisica giocando.</p>
+            </div>
+            <div class="story-media">
+                <img src="RE02-2-GIF.gif" alt="Robot Disegnatore">
+            </div>
+        </div>
+
+        <div class="story-section">
+            <div class="story-text">
+                <h2>5. "L'ho fatto io!"</h2>
+                <p>Non vogliamo creare solo piccoli tecnici, ma bambini sicuri di sé. Quando il robot inizia a muoversi grazie al loro lavoro, nei loro occhi si accende una luce diversa. Quella fiducia vale più di qualsiasi lezione.</p>
+            </div>
+            <div class="story-media">
+                <img src="RE03-1.gif" alt="Meccanismi">
+            </div>
+        </div>
+
+        <div class="story-section">
+            <div class="story-text">
+                <h2>6. Trasforma il gioco in futuro.</h2>
+                <p>Il ciclo è di <b>8 Incontri</b> a San Lazzaro. I posti sono limitati per garantire attenzione individuale. Non perdere l'occasione di regalargli un'ora a settimana di pura scoperta.</p>
+                <a href="#register" class="btn" style="background: var(--primary); color: white;">Prenota Ora</a>
+            </div>
+            <div class="story-media">
+                <img src="RE04-1-GIF (1).gif" alt="Robot Camminatore">
+            </div>
+        </div>
+
+    </div>
+
+    <section id="register" class="registration">
+        <div class="container">
+            <h2>Prenota il Tuo Posto</h2>
+            <p>Compila il modulo qui sotto. Ti invieremo i dettagli e il calendario via email.</p>
+            
+            <div class="form-wrapper">
+                <iframe width="100%" height="550px" src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__qpBaPxUNEJBWFkzMFdSWjc1T0s1UThTSUxYUUxNUS4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+            </div>
+
+            <p style="margin-top: 30px; font-size: 0.9rem; opacity: 0.8;">
+                Domande? RobotMaker.BO@outlook.com
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p><b>Robot Maker Bologna © 2026</b></p>
+        <p>Laboratorio Educativo - San Lazzaro di Savena</p>
+    </footer>
+
+</body>
+</html>
