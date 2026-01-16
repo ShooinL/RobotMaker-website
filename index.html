@@ -52,21 +52,19 @@
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: 900; color: white; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
 
-        /* HERO SECTION (The "Wow" Factor) */
+        /* HERO SECTION */
         .hero { 
-            /* Using your uploaded image as background */
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('02-3.jpg');
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('02-3.jpg');
             background-size: cover;
             background-position: center;
-            height: 90vh; /* Takes up almost full screen */
+            height: 90vh; 
             min-height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
-            position: relative;
-            border-radius: 0 0 40px 40px; /* Modern curve at bottom */
+            border-radius: 0 0 40px 40px; 
         }
         
         .hero-content { max-width: 800px; padding: 20px; animation: fadeIn 1.5s ease; }
@@ -79,48 +77,37 @@
         /* STORY SECTIONS */
         .story-container { padding: 80px 0; }
         .story-section { display: flex; align-items: center; gap: 60px; margin-bottom: 120px; }
-        
-        /* Zig Zag Logic */
         .story-section:nth-child(even) { flex-direction: row-reverse; } 
         
         .story-text { flex: 1; }
         .story-text h2 { font-size: 2.2rem; margin-bottom: 20px; color: var(--primary); line-height: 1.2; position: relative; }
-        /* Small underline for titles */
         .story-text h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin-top: 15px; border-radius: 2px; }
-        
         .story-text p { font-size: 1.15rem; color: #444; margin-bottom: 20px; }
         
-        .story-media { flex: 1; position: relative; }
-        /* Decorative element behind images */
-        .story-media::before {
-            content: ''; position: absolute; width: 100%; height: 100%; 
-            background: #e6f2ff; border-radius: 15px; z-index: -1; 
-            top: 20px; left: 20px; /* Offset effect */
-        }
-        .story-section:nth-child(even) .story-media::before { left: -20px; }
+        .story-media { flex: 1; }
 
         /* REGISTRATION FORM AREA */
         .registration { background: var(--primary); color: white; padding: 80px 20px; text-align: center; }
         .registration h2 { font-size: 2.5rem; margin-bottom: 10px; }
-        .form-wrapper { background: white; max-width: 700px; margin: 40px auto 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .form-wrapper { background: white; max-width: 700px; margin: 40px auto 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); padding: 5px; }
 
-        footer { background: #111; color: #888; text-align: center; padding: 40px; font-size: 0.9rem; }
+        /* --- MOBILE FORM TRICK --- */
+        /* On Desktop: Show Iframe, Hide Button */
+        .desktop-form { display: block; width: 100%; height: 640px; border: none; }
+        .mobile-btn-container { display: none; padding: 40px 20px; text-align: center; }
+        .mobile-btn-text { color: #555; font-size: 1.1rem; margin-bottom: 20px; display: block; }
 
         /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
-            .hero { height: auto; padding: 120px 20px 60px 20px; }
-            
-            /* Stack everything vertically on mobile */
             .story-section { flex-direction: column !important; gap: 30px; margin-bottom: 80px; text-align: center; }
-            .story-text h2::after { margin: 15px auto; /* Center underline */ }
-            .story-media::before { display: none; /* Remove offset box on mobile for cleaner look */ }
-            .nav-content { flex-direction: column; gap: 10px; }
+            .story-text h2::after { margin: 15px auto; }
             
-            iframe { height: 600px; }
+            /* HIDE IFRAME ON MOBILE, SHOW BUTTON INSTEAD */
+            .desktop-form { display: none; }
+            .mobile-btn-container { display: block; }
         }
 
-        /* Animation */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -219,7 +206,16 @@
             <p>Compila il modulo qui sotto. Ti invieremo i dettagli e il calendario via email.</p>
             
             <div class="form-wrapper">
-                <iframe width="100%" height="550px" src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__qpBaPxUNEJBWFkzMFdSWjc1T0s1UThTSUxYUUxNUS4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+                
+                <iframe class="desktop-form" src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__qpBaPxUNEJBWFkzMFdSWjc1T0s1UThTSUxYUUxNUS4u&embed=true" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+                
+                <div class="mobile-btn-container">
+                    <p class="mobile-btn-text">Per una migliore esperienza su mobile, apri il modulo a schermo intero:</p>
+                    <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__qpBaPxUNEJBWFkzMFdSWjc1T0s1UThTSUxYUUxNUS4u" target="_blank" class="btn">
+                        Apri il Modulo di Iscrizione 📝
+                    </a>
+                </div>
+
             </div>
 
             <p style="margin-top: 30px; font-size: 0.9rem; opacity: 0.8;">
